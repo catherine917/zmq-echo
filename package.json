@@ -19,12 +19,13 @@
         "url": "https://github.com/n-riesco/zmq-echo.git"
     },
     "private": true,
-    "bin": {
-        "zmq-echo-server": "bin/zmq-echo-server.js",
-        "zmq-echo-client": "bin/zmq-echo-client.js"
+    "scripts": {
+        "server": "node ./bin/zmq-echo-server.js",
+        "client": "node ./bin/zmq-echo-client.js"
     },
     "license": "BSD-2-Clause",
     "dependencies": {
+        "randomatic": "^3.1.1",
         "zmq": "^2.10.0"
     }
 }

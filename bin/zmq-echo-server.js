@@ -3,7 +3,7 @@
 var zmq = require("zmq");
 
 var s = zmq.createSocket("rep");
-s.bind(process.argv[2]);
+s.bind("tcp://*:7777");
 s.on("message", function(data) {
     s.send(data);
 });
