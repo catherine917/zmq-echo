@@ -9,7 +9,7 @@ message.fill("h");
 let push = zmq.createSocket("push");
 push.bindSync("tcp://*:5555");
 let operation = 0;
-const pull_ip = ["172.31.46.194", "172.31.45.185", "172.31.47.203", "172.31.43.90"];
+const pull_ip = ["172.31.44.3", "172.31.44.50","172.31.34.25", "172.31.46.108"];
 let sockets = [];
 for (let i = 0; i < pull_ip.length; i++) {
   let echo = zmq.createSocket("pull");
@@ -20,7 +20,6 @@ for (let i = 0; i < pull_ip.length; i++) {
 for (let socket of sockets) {
     socket.on("message", () => {
         ++operation;
-        // console.log(operation);
         if (operation == message_count) {
             let endtime = process.hrtime(timer);
             let sec = endtime[0] + endtime[1] / 1000000000;
@@ -29,6 +28,7 @@ for (let socket of sockets) {
             console.log("message count: %d", message_count);
             console.log("mean throughput: %d [ops/s]", throughput);
             console.log("overall time: %d secs", sec);
+            push.close();
             socket.close();
     }
   });

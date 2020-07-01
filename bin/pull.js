@@ -1,6 +1,6 @@
 var zmq = require("zmq");
 
-const pull_addr = "tcp://172.31.33.207:5555";
+const pull_addr = "tcp://172.31.47.199:5555";
 
 let socket = zmq.createSocket("pull");
 socket.connect(pull_addr);
