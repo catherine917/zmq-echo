@@ -20,6 +20,7 @@ let operation = 0;
     // console.log(pull_sockets[index]);
 pull.on("message", () => {
     ++operation;
+    // console.log(operation);
     if(operation == message_count) {
         let endtime = process.hrtime(timer);
         let sec = endtime[0] + endtime[1] / 1000000000;

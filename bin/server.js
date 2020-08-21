@@ -6,7 +6,7 @@ const server_id = Number(process.argv[4]);
 let message = new Buffer(message_size);
 message.fill("h");
 
-const client_ip = ["13.212.22.54"];
+const client_ip = ["13.212.22.54", "13.212.36.81"];
 const server_port = 5555;
 const client_port = 5560;
 
@@ -18,8 +18,9 @@ echo.connect(`tcp://${client_ip[index]}:${client_port}`);
 let counter = 0;
 puller.on("message", () => {
     ++counter;
-    echo.send(message);
+    echo.send(counter);
     if(counter == message_count) {
+        console.log(`Receive all the message, message count is ${message_count}`)
         puller.close();
         echo.close();
     }
