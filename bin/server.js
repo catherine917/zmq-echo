@@ -5,7 +5,7 @@ const message_count = Number(process.argv[3]);
 let message = new Buffer(message_size);
 message.fill("h");
 
-const client_ip = ["13.212.22.54", "13.212.36.81"];
+const client_ip = ["13.212.22.54", "13.212.36.81", "54.179.108.164", "54.254.50.112"];
 const server_port = 5555;
 const client_port = 5560;
 

@@ -18,18 +18,22 @@ for(let i = 0 ; i < server_ip.length; i++) {
 }
 let pull = zmq.createSocket("pull");
 let operation = 0;
+let discount = 0;
 pull.on('disconnect', function(fd, ep) {
     console.log('disconnect, endpoint:', ep);
-    let endtime = process.hrtime(timer);
-    let sec = endtime[0] + endtime[1] / 1000000000;
-    let throughput = operation / sec;
-    console.log("message size: %d [B]", message_size);
-    console.log("message count: %d", operation);
-    console.log("mean throughput: %d [ops/s]", throughput);
-    console.log("overall time: %d secs", sec);
+    ++discount;
+    console.log(discount);
+    if(discount = server_ip.length) {
+        let endtime = process.hrtime(timer);
+        let sec = endtime[0] + endtime[1] / 1000000000;
+        let throughput = operation / sec;
+        console.log("message size: %d [B]", message_size);
+        console.log("message count: %d", operation);
+        console.log("mean throughput: %d [ops/s]", throughput);
+        console.log("overall time: %d secs", sec);
+    }
     // pull.close();
     // push.close();
-
 });
 console.log('Start monitoring...');
 pull.monitor(500, 0);
