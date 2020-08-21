@@ -18,14 +18,13 @@ for(let i = 0; i < client_ip.length; i++) {
     echo.push(socket);
 }
 let counter = 0;
-let total = message_count * client_ip.length;
 puller.on("message", (msg) => {
     ++counter;
     let v = msg.toString().split(":");
     let index = v[1];
     echo[index].send(counter);
-    if(counter == total) {
-        console.log(`Receive all the message, message count is ${total}`);
+    if(counter == message_count) {
+        console.log(`Receive all the message, message count is ${message_count}`);
         puller.close();
         for(let i = 0; i < client_ip.length; i++) {
             echo[i].close();
