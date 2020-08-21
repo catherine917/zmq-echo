@@ -20,7 +20,7 @@ puller.on("message", () => {
     ++counter;
     echo.send(message);
     if(counter == message_count) {
-        socket.close();
+        puller.close();
         echo.close();
     }
 })

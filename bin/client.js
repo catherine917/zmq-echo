@@ -23,7 +23,7 @@ pull.on("message", () => {
     if(operation == message_count) {
         let endtime = process.hrtime(timer);
         let sec = endtime[0] + endtime[1] / 1000000000;
-        let throughput = ops / sec;
+        let throughput = message_count / sec;
         console.log("message size: %d [B]", message_size);
         console.log("message count: %d", message_count);
         console.log("mean throughput: %d [ops/s]", throughput);
