@@ -6,7 +6,7 @@ let client_id = Number(process.argv[4]);
 let message = new Buffer(message_size);
 message.fill("h");
 
-const server_ip = ["13.250.19.134","54.179.216.119"];
+const server_ip = ["13.250.19.134","54.179.216.119", "18.141.240.42", "54.255.230.177"];
 const server_port = 5555;
 let client_port = 5560;
 
@@ -20,10 +20,8 @@ let pull = zmq.createSocket("pull");
 let operation = 0;
 let discount = 0;
 pull.on('disconnect', function(fd, ep) {
-    console.log('disconnect, endpoint:', ep);
     ++discount;
-    console.log(discount);
-    if(discount = server_ip.length) {
+    if(discount == server_ip.length) {
         let endtime = process.hrtime(timer);
         let sec = endtime[0] + endtime[1] / 1000000000;
         let throughput = operation / sec;
