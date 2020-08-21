@@ -2,7 +2,6 @@ var zmq = require("zmq");
 
 let message_size = Number(process.argv[2]);
 const message_count = Number(process.argv[3]);
-const server_id = Number(process.argv[4]);
 let message = new Buffer(message_size);
 message.fill("h");
 
@@ -12,16 +11,24 @@ const client_port = 5560;
 
 let puller = zmq.createSocket("pull");
 puller.bind(`tcp://*:${server_port}`);
-let index = server_id % client_ip.length;
-let echo = zmq.createSocket("push");
-echo.connect(`tcp://${client_ip[index]}:${client_port}`);
+let echo = [];
+for(let i = 0; i < client_ip.length; i++) {
+    let socket = zmq.createSocket("push");
+    socket.connect(`tcp://${client_ip[i]}:${client_port}`);
+    echo.push(socket);
+}
 let counter = 0;
-puller.on("message", () => {
+let total = message_count * client_ip.length;
+puller.on("message", (msg) => {
     ++counter;
-    echo.send(counter);
-    if(counter == message_count) {
-        console.log(`Receive all the message, message count is ${message_count}`)
+    let v = msg.toString().split(":");
+    let index = v[1];
+    echo[index].send(counter);
+    if(counter == total) {
+        console.log(`Receive all the message, message count is ${total}`);
         puller.close();
-        echo.close();
+        for(let i = 0; i < client_ip.length; i++) {
+            echo[i].close();
+        }
     }
 })
