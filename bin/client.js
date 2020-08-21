@@ -6,7 +6,8 @@ let client_id = Number(process.argv[4]);
 let message = new Buffer(message_size);
 message.fill("h");
 
-const server_ip = ["13.250.19.134","54.179.216.119", "18.141.240.42", "54.255.230.177"];
+// const server_ip = ["13.250.19.134","54.179.216.119", "18.141.240.42", "54.255.230.177"];
+const server_ip = ["13.250.19.134","54.179.216.119"];
 const server_port = 5555;
 let client_port = 5560;
 
