@@ -17,7 +17,7 @@ for(let i = 0 ; i < server_ip.length; i++) {
     push_sockets.push(push);
 }
 let pull = zmq.createSocket("pull");
-// let operation = 0;
+let operation = 0;
 // let discount = 0;
 // pull.on('disconnect', function(fd, ep) {
 //     ++discount;
