@@ -39,8 +39,8 @@ pull.bindSync(`tcp://*:${client_port}`);
 
 pull.on("message", () => {
     ++operation;
-    let index = operation % server_ip.length;
-    push_sockets[index].send(`${message}:${client_id}`);
+    // let index = operation % server_ip.length;
+    // push_sockets[index].send(`${message}:${client_id}`);
     if(operation == message_count) {
         let endtime = process.hrtime(timer);
         let sec = endtime[0] + endtime[1] / 1000000000;
@@ -49,8 +49,8 @@ pull.on("message", () => {
     }
 });
 let timer = process.hrtime();
-push_sockets[0].send(`${message}:${client_id}`);
-// for(let i = 0; i < message_count; i++) {
-//     let index = i % server_ip.length;
-//     push_sockets[index].send(`${message}:${client_id}`);
-// }
+// push_sockets[0].send(`${message}:${client_id}`);
+for(let i = 0; i < message_count; i++) {
+    let index = i % server_ip.length;
+    push_sockets[index].send(`${message}:${client_id}`);
+}

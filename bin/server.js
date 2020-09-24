@@ -19,11 +19,11 @@ for(let i = 0; i < client_ip.length; i++) {
 }
 let counter = 0;
 puller.on("message", (msg) => {
-    ++counter;
+    counter++;
     let v = msg.toString().split(":");
     let index = v[1];
     echo[index].send(counter);
-    console.log(counter);
+    // console.log(counter);
     // if(counter == message_count) {
     //     console.log(`Receive all the message, message count is ${message_count}`);
     //     puller.close();
