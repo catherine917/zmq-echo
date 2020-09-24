@@ -23,11 +23,12 @@ puller.on("message", (msg) => {
     let v = msg.toString().split(":");
     let index = v[1];
     echo[index].send(counter);
-    if(counter == message_count) {
-        console.log(`Receive all the message, message count is ${message_count}`);
-        puller.close();
-        for(let i = 0; i < client_ip.length; i++) {
-            echo[i].close();
-        }
-    }
+    console.log(counter);
+    // if(counter == message_count) {
+    //     console.log(`Receive all the message, message count is ${message_count}`);
+    //     puller.close();
+    //     for(let i = 0; i < client_ip.length; i++) {
+    //         echo[i].close();
+    //     }
+    // }
 })

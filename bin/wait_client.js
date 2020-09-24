@@ -34,7 +34,7 @@ let operation = 0;
 //     // push.close();
 // });
 console.log('Start monitoring...');
-pull.monitor(500, 0);
+// pull.monitor(500, 0);
 pull.bindSync(`tcp://*:${client_port}`);
 
 pull.on("message", () => {
