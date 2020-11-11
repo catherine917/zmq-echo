@@ -10,8 +10,7 @@ var message_size = Number(process.argv[2]);
 var message_count = Number(process.argv[3]);
 var server_count = Number(process.argv[4]);
 var thread_number = Number(process.argv[5]);
-var message = new Buffer(message_size);
-message.fill("h");
+var message = Buffer.alloc(message_size, "h");
 
 // for (let i = 0; i < server_count; i++) {
 //   let socket = zmq.createSocket("push");
@@ -55,12 +54,12 @@ if (cluster.isMaster) {
     // console.log(`total time: ${total_time}`);
     // console.log(`work number: ${worker_num}`);
     if (worker_num == thread_number) {
-        let throughput = operation_num * 2 / total_time;
-        console.log("message size: %d [B]", message_size);
-        console.log("message count: %d", message_count * thread_number);
-        console.log("mean throughput: %d [ops/s]", throughput);
-        console.log("overall time: %d secs", total_time);
-      }
+      let throughput = (operation_num * 2) / total_time;
+      console.log("message size: %d [B]", message_size);
+      console.log("message count: %d", message_count * thread_number);
+      console.log("mean throughput: %d [ops/s]", throughput);
+      console.log("overall time: %d secs", total_time);
+    }
   });
 } else {
   process.on("message", (port) => {
@@ -70,7 +69,7 @@ if (cluster.isMaster) {
     let timer = process.hrtime();
     socket.connect(port);
     socket.on("message", (data) => {
-        console.log(data);
+      console.log(data);
       if (data == "echo") {
         ++operation;
         // console.log(operation);
@@ -84,13 +83,11 @@ if (cluster.isMaster) {
           socket.close();
           process.exit();
         }, 1000);
-      }else {
-        socket.send(message);
       }
     });
-    socket.send(message);
-    // for (var i = 0; i < message_count; i++) {
-    //   socket.send(message);
-    // }
+    // socket.send(message);
+    for (var i = 0; i < message_count; i++) {
+      socket.send(message);
+    }
   });
 }

@@ -2,10 +2,10 @@ var zmq = require("zmq");
 
 let message_size = Number(process.argv[2]);
 const message_count = Number(process.argv[3]);
-let message = new Buffer(message_size);
-message.fill("h");
+let message = Buffer.alloc(message_size, "abc");
 
-const client_ip = ["18.141.209.125", "18.139.224.28", "18.141.140.151", "54.151.208.214"];
+// const client_ip = ["18.141.209.125", "18.139.224.28", "18.141.140.151", "54.151.208.214"];
+const client_ip = ["13.212.213.248"];
 const server_port = 5555;
 const client_port = 5560;
 
